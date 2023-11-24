@@ -1,0 +1,94 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-11-22 15:28:49.691324",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "transactiondate",
+  "transactionamount",
+  "mode",
+  "refreturned",
+  "column_break_aayh",
+  "cheque",
+  "chequeno",
+  "transaction_status",
+  "comment"
+ ],
+ "fields": [
+  {
+   "fieldname": "transactiondate",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Transaction Date"
+  },
+  {
+   "fieldname": "transactionamount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Transaction Amount",
+   "precision": "2"
+  },
+  {
+   "default": "Cash",
+   "fieldname": "mode",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Mode of Payment",
+   "options": "CMTransactionMode"
+  },
+  {
+   "fieldname": "comment",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Comment"
+  },
+  {
+   "default": "Paid",
+   "fieldname": "transaction_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Transaction Status",
+   "options": "Paid\nUnpaid"
+  },
+  {
+   "depends_on": "eval:doc.mode === 'Cheque'",
+   "fieldname": "cheque",
+   "fieldtype": "Link",
+   "label": "Linked Cheque",
+   "options": "CMCheque"
+  },
+  {
+   "default": "1",
+   "fieldname": "refreturned",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Against Returned"
+  },
+  {
+   "fieldname": "column_break_aayh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.mode === 'Cheque'",
+   "fieldname": "chequeno",
+   "fieldtype": "Data",
+   "label": "Cheque No",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-11-23 15:22:23.830553",
+ "modified_by": "Administrator",
+ "module": "ChequeManager",
+ "name": "CMTransaction",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
