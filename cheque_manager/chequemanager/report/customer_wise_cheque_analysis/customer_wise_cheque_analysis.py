@@ -61,7 +61,10 @@ def get_data(filters, statuslist):
                 + row["Returned - Paid Full"]
             )
         )
-        row["avgpresentation"] = row["clearingattempts"] / row["Cleared"]
+        if row["Cleared"] != 0:
+            row["avgpresentation"] = row["clearingattempts"] / row["Cleared"]
+        else:
+            row["avgpresentation"] = 9999
     return data
 
 
