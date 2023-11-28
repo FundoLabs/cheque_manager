@@ -9,6 +9,12 @@ frappe.ui.form.on("CMCheque", {
     frm.trigger("handle_validate_or_load");
   },
 
+  customer(frm) {
+    frappe.db.get_doc("Customer", frm.doc.customer).then((cust) => {
+      frm.doc.customer_name = cust.customer_name;
+    });
+  },
+
   handle_validate_or_load(frm) {
     if (frm.doc.chequestatus === "In Hand") {
       set_field_options("chequestatus", ["In Hand", "Presented"]);

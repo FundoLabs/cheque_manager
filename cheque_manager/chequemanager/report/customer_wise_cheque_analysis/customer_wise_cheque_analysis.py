@@ -42,9 +42,9 @@ def get_data(filters, statuslist):
             sum(presented) as clearingattempts,
             sum(case when chequestatus = "Cleared" then presented else 0 end) as clearingattempts,
             {chequeconditions}
-            customer,
+            (select t1.customer_name from tabCustomer t1 where t1.name = t0.customer) as customer,
             salesperson
-        FROM `tabCMCheque` group by customer, salesperson
+        FROM `tabCMCheque` t0 group by customer, salesperson
 	""".format(
         chequeconditions=chequeconditions
     )

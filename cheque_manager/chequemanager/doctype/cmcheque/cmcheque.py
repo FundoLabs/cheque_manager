@@ -24,6 +24,7 @@ class CMCheque(Document):
         chequestatus: DF.Literal["In Hand", "Presented", "Cleared", "Returned", "Returned - Part Paid", "Returned - Paid Full"]
         clearance_date: DF.Date | None
         customer: DF.Link
+        customer_name: DF.Data | None
         image: DF.AttachImage | None
         presented: DF.Int
         refcheque: DF.Link | None
