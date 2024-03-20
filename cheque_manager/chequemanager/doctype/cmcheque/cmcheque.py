@@ -12,7 +12,9 @@ class CMCheque(Document):
     from typing import TYPE_CHECKING
 
     if TYPE_CHECKING:
-        from cheque_manager.chequemanager.doctype.cmtransaction.cmtransaction import CMTransaction
+        from cheque_manager.chequemanager.doctype.cmtransaction.cmtransaction import (
+            CMTransaction,
+        )
         from frappe.types import DF
 
         amended_from: DF.Link | None
@@ -21,7 +23,14 @@ class CMCheque(Document):
         bank: DF.Link
         chequedate: DF.Date
         chequeno: DF.Data
-        chequestatus: DF.Literal["In Hand", "Presented", "Cleared", "Returned", "Returned - Part Paid", "Returned - Paid Full"]
+        chequestatus: DF.Literal[
+            "In Hand",
+            "Presented",
+            "Cleared",
+            "Returned",
+            "Returned - Part Paid",
+            "Returned - Paid Full",
+        ]
         clearance_date: DF.Date | None
         customer: DF.Link
         customer_name: DF.Data | None
@@ -36,6 +45,11 @@ class CMCheque(Document):
     # end: auto-generated types
 
     def before_save(self):
+        if self.customer_name is None:
+            self.customer_name = frappe.db.get_value(
+                "Customer", self.customer, "customer_name"
+            )
+
         if self.amount == 0.00:
             frappe.throw("Amount cannot be zero")
         if self.chequestatus != "Cleared":
