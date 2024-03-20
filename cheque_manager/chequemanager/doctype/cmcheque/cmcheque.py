@@ -95,6 +95,12 @@ class CMCheque(Document):
             and self.chequestatus in ["Returned", "Returned - Part Paid"]
         ):
             self.chequestatus = "Returned - Part Paid"
+        elif (
+            self.balance > 0.0
+            and self.balance == self.amount
+            and self.chequestatus in ["Returned", "Returned - Part Paid"]
+        ):
+            self.chequestatus = "Returned"
 
     def create_transaction(self):
         from datetime import date
